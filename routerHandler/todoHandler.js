@@ -19,13 +19,25 @@ router.post("/", async (req, res) => {
       });
     } else {
       res.status(200).json({
-        message: "succesfully created",
+        message: "succesfully inserted",
       });
     }
   });
 });
 // Post Mutiple Todos
-router.post("/all", (req, res) => {});
+router.post("/all", async (req, res) => {
+  await Todo.insertMany(req.body, (err) => {
+    if (err) {
+      res.status(500).json({
+        error: "there was server side error",
+      });
+    } else {
+      res.status(200).json({
+        message: "succesfully inserted",
+      });
+    }
+  });
+});
 // Put Todo
 router.put("/:id", (req, res) => {});
 // Delete Todo
